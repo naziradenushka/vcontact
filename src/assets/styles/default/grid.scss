@@ -1,0 +1,67 @@
+.container {
+    width: 100%;
+    padding: 0 60px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.flexRow, .flexColumn, .flexWrap, .flexGrid { 
+    @extend .df;
+}
+
+.flexColumn {
+    @extend .fdc;
+}
+
+.flexWrap, .flexGrid {
+    @extend .fww;
+}
+
+.flexCell {
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.marginIndents {
+    margin: 0 -15px;
+}
+
+@media(max-width: 1600px) {
+    .container {
+        padding: 0 60px;
+    }
+}
+@media(max-width: 800px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .flexCell {
+        padding: 0 15px;
+    }
+    
+    .marginIndents {
+        margin: 0 -15px;
+    }
+}
+
+/* @media(min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+@media(min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+@media(min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+@media(min-width: 1200px) {
+    .container {
+        max-width: 1110px;
+    }
+} */

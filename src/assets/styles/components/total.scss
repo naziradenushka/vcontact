@@ -1,0 +1,16 @@
+.warning-error {
+    color: $error;
+}
+
+.link-brand {
+    &:hover {
+        color: $hoverBrandColor;
+    }
+}
+
+.input-errors {
+    color: $error;
+    div {
+        margin-top: 5px;
+    }
+}
