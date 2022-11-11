@@ -1,1 +1,0 @@
-import{_ as t,j as s,x as o,m as e}from"./index.08e3451e.js";const n={},_={class:"error404"},c=e("div",{class:"container"},[e("h1",{class:"title-h1"}," 404 not found ")],-1),a=[c];function r(d,i){return s(),o("div",_,a)}const f=t(n,[["render",r]]);export{f as default};
