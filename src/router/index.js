@@ -6,14 +6,14 @@ const routes = [
     name: 'home',
     component: () => import('@/views/HomePage.vue'),
   },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/LoginPage.vue'),
-    meta: {
-      layout: 'layout-auth'
-    }
-  },
+  // {
+  //   path: '/login',
+  //   name: 'login',
+  //   component: () => import('@/views/LoginPage.vue'),
+  //   meta: {
+  //     layout: 'layout-auth'
+  //   }
+  // },
   {
     path: '/404',
     name: '404',

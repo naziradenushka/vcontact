@@ -8,5 +8,5 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/styles/blocks/login.scss';
+@import '@/assets/styles/blocks/login.scss';
 </style>

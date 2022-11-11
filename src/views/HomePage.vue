@@ -60,11 +60,11 @@ const v_edit$ = useVuelidate(rules, editedContact);
 //   });
 // }
 
-function closeModal() {
+const closeModal = () => {
   modalAdd.value = false;
   modalEdit.value = false;
-  this.v$.$reset();
-  this.v_edit$.$reset();
+  v$.value.$reset();
+  v_edit$.value.$reset();
   newContact.value = {
     id: '',
     fio: '',
@@ -74,8 +74,8 @@ function closeModal() {
   };
 }
 function addContact() {
-  this.v$.$validate();
-  if (!this.v$.$invalid) {
+  v$.value.$validate();
+  if (!v$.value.$invalid) {
     newContact.value.id = Date.now();
     data.value.push(newContact.value);
     injectToaster.success(`Contact ${newContact.value.fio} added!`);
@@ -87,8 +87,8 @@ function editContactShow(id) {
   modalEdit.value = true;
 }
 function editContact() {
-  this.v_edit$.$validate();
-  if (!this.v_edit$.$invalid) {
+  v_edit$.value.$validate();
+  if (!v_edit$.value.$invalid) {
     let index = data.value.findIndex((x) => x.id == editedContact.value.id);
     data.value.splice(index, 1, editedContact.value);
     closeModal();
