@@ -1,5 +1,7 @@
 <script setup>
-import { ref, inject, onMounted } from 'vue';
+import { storeToRefs } from 'pinia'
+import { useContactsStore } from '@/stores/contacts.js'
+import { ref, inject, onMounted, computed } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, email, minLength, numeric } from '@vuelidate/validators';
 import UiModalWrapper from '@/components/UI/UiModalWrapper.vue';
@@ -11,6 +13,9 @@ import UiPagination from '@/components/UI/UiPagination.vue';
 import { useDataTable } from '@/composables/useDataTable.js';
 
 const injectToaster = inject('toaster');
+
+const store = useContactsStore()
+const { data } = storeToRefs(store)
 
 const currentPage = ref(1);
 const modalAdd = ref(false);
@@ -36,7 +41,6 @@ const filterModel = ref({
   address: '',
   tags: [],
 });
-const data = ref([]);
 
 const rules = {
   fio: { required },
@@ -50,15 +54,6 @@ const rules = {
 
 const v$ = useVuelidate(rules, newContact);
 const v_edit$ = useVuelidate(rules, editedContact);
-// for (let i = 0; i < 22; i++) {
-//   let random = Math.ceil(Math.random() * 100);
-//   data.value.push({
-//     id: i,
-//     fio: i,
-//     phone: `name-${i}`,
-//     address: random,
-//   });
-// }
 
 const closeModal = () => {
   modalAdd.value = false;
@@ -76,8 +71,7 @@ const closeModal = () => {
 function addContact() {
   v$.value.$validate();
   if (!v$.value.$invalid) {
-    newContact.value.id = Date.now();
-    data.value.push(newContact.value);
+    store.addContact(newContact.value);
     injectToaster.success(`Contact ${newContact.value.fio} added!`);
     closeModal();
   }
@@ -89,15 +83,13 @@ function editContactShow(id) {
 function editContact() {
   v_edit$.value.$validate();
   if (!v_edit$.value.$invalid) {
-    let index = data.value.findIndex((x) => x.id == editedContact.value.id);
-    data.value.splice(index, 1, editedContact.value);
+    store.editContact(editedContact.value);
     closeModal();
   }
 }
 function deleteContact(id) {
-  let index = data.value.findIndex((x) => String(x.id) == String(id));
-  data.value.splice(index, 1);
-  injectToaster.error(`Contact with id ${index} deleted!`);
+  store.deleteContact(id);
+  injectToaster.error(`Contact with id ${id} deleted!`);
 }
 
 const { showAll, selectPerpages, perPageData, sortedData, showAllPages, sort, perPagesList } = useDataTable(
@@ -215,7 +207,7 @@ const { showAll, selectPerpages, perPageData, sortedData, showAllPages, sort, pe
           </tbody>
           <tbody v-else>
             <tr>
-              <td colspan="4">Data not found</td>
+              <td colspan="5">Data not found</td>
             </tr>
           </tbody>
         </table>
